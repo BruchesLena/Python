@@ -1,0 +1,176 @@
+nn = Network([784, 784, 10])
+nn.SGD(training_data, 25, 10, 0.01, test_data)
+Epoch 0: 1044 / 10000
+Epoch 1: 1114 / 10000
+Epoch 2: 1185 / 10000
+Epoch 3: 1314 / 10000
+Epoch 4: 1431 / 10000
+Epoch 5: 1569 / 10000
+Epoch 6: 1740 / 10000
+Epoch 7: 1915 / 10000
+Epoch 8: 2052 / 10000
+Epoch 9: 2187 / 10000
+Epoch 10: 2314 / 10000
+Epoch 11: 2416 / 10000
+Epoch 12: 2487 / 10000
+Epoch 13: 2564 / 10000
+Epoch 14: 2614 / 10000
+Epoch 15: 2650 / 10000
+Epoch 16: 2691 / 10000
+Epoch 17: 2726 / 10000
+Epoch 18: 2754 / 10000
+Epoch 19: 2795 / 10000
+Epoch 20: 2819 / 10000
+Epoch 21: 2847 / 10000
+Epoch 22: 2878 / 10000
+Epoch 23: 2906 / 10000
+Epoch 24: 2928 / 10000
+Elapsed Time: 16411.075 sec
+
+
+nn = Network([784, 100, 10])
+nn.SGD(training_data, 25, 10, 0.1, test_data)
+Epoch 0: 3506 / 10000
+Epoch 1: 4364 / 10000
+Epoch 2: 4518 / 10000
+Epoch 3: 4593 / 10000
+Epoch 4: 4644 / 10000
+Epoch 5: 4672 / 10000
+Epoch 6: 4701 / 10000
+Epoch 7: 5500 / 10000
+Epoch 8: 5729 / 10000
+Epoch 9: 5803 / 10000
+Epoch 10: 5830 / 10000
+Epoch 11: 5855 / 10000
+Epoch 12: 5883 / 10000
+Epoch 13: 5911 / 10000
+Epoch 14: 5986 / 10000
+Epoch 15: 6681 / 10000
+Epoch 16: 6828 / 10000
+Epoch 17: 7208 / 10000
+Epoch 18: 7420 / 10000
+Epoch 19: 7479 / 10000
+Epoch 20: 7556 / 10000
+Epoch 21: 7590 / 10000
+Epoch 22: 7622 / 10000
+Epoch 23: 7667 / 10000
+Epoch 24: 7704 / 10000
+Elapsed Time: 1360.836 sec
+
+nn = Network([784, 324, 10])
+nn.SGD(training_data, 25, 10, 0.1, test_data)
+
+Epoch 0: 5147 / 10000
+Epoch 1: 5569 / 10000
+Epoch 2: 5703 / 10000
+Epoch 3: 5750 / 10000
+Epoch 4: 5778 / 10000
+Epoch 5: 5798 / 10000
+Epoch 6: 5813 / 10000
+Epoch 7: 5825 / 10000
+Epoch 8: 5834 / 10000
+Epoch 9: 5847 / 10000
+Epoch 10: 5857 / 10000
+Epoch 11: 5864 / 10000
+Epoch 12: 5871 / 10000
+Epoch 13: 5880 / 10000
+Epoch 14: 5882 / 10000
+Epoch 15: 5884 / 10000
+Epoch 16: 5888 / 10000
+Epoch 17: 5890 / 10000
+Epoch 18: 5893 / 10000
+Epoch 19: 5894 / 10000
+Epoch 20: 5895 / 10000
+Epoch 21: 5898 / 10000
+Epoch 22: 5901 / 10000
+Epoch 23: 5907 / 10000
+Epoch 24: 5908 / 10000
+Elapsed Time: 6531.817 sec
+
+nn = Network([784, 100, 100, 10])
+nn.SGD(training_data, 25, 10, 0.1, test_data)
+Epoch 0: 3141 / 10000
+Epoch 1: 6869 / 10000
+Epoch 2: 7495 / 10000
+Epoch 3: 8152 / 10000
+Epoch 4: 8481 / 10000
+Epoch 5: 8640 / 10000
+Epoch 6: 8759 / 10000
+Epoch 7: 8844 / 10000
+Epoch 8: 8913 / 10000
+Epoch 9: 8952 / 10000
+Epoch 10: 8992 / 10000
+Epoch 11: 9028 / 10000
+Epoch 12: 9053 / 10000
+Epoch 13: 9073 / 10000
+Epoch 14: 9103 / 10000
+Epoch 15: 9120 / 10000
+Epoch 16: 9135 / 10000
+Epoch 17: 9153 / 10000
+Epoch 18: 9172 / 10000
+Epoch 19: 9191 / 10000
+Epoch 20: 9205 / 10000
+Epoch 21: 9211 / 10000
+Epoch 22: 9225 / 10000
+Epoch 23: 9238 / 10000
+Epoch 24: 9252 / 10000
+Elapsed Time: 1691.851 sec
+
+nn = Network([784, 300, 300, 10])
+nn.SGD(training_data, 25, 10, 0.1, test_data)
+Epoch 0: 2874 / 10000
+Epoch 1: 3336 / 10000
+Epoch 2: 4578 / 10000
+Epoch 3: 4792 / 10000
+Epoch 4: 4844 / 10000
+Epoch 5: 4873 / 10000
+Epoch 6: 4887 / 10000
+Epoch 7: 4888 / 10000
+Epoch 8: 4894 / 10000
+Epoch 9: 4909 / 10000
+Epoch 10: 4916 / 10000
+Epoch 11: 4929 / 10000
+Epoch 12: 4936 / 10000
+Epoch 13: 4947 / 10000
+Epoch 14: 4952 / 10000
+Epoch 15: 4958 / 10000
+Epoch 16: 4965 / 10000
+Epoch 17: 4975 / 10000
+Epoch 18: 4987 / 10000
+Epoch 19: 4989 / 10000
+Epoch 20: 4993 / 10000
+Epoch 21: 5004 / 10000
+Epoch 22: 5018 / 10000
+Epoch 23: 5051 / 10000
+Epoch 24: 5417 / 10000
+Elapsed Time: 8275.925 sec
+
+nn = Network([784, 100, 100, 100, 10])
+nn.SGD(training_data, 25, 10, 0.1, test_data)
+Epoch 0: 5476 / 10000
+Epoch 1: 6433 / 10000
+Epoch 2: 7411 / 10000
+Epoch 3: 7759 / 10000
+Epoch 4: 7919 / 10000
+Epoch 5: 8029 / 10000
+Epoch 6: 8092 / 10000
+Epoch 7: 8145 / 10000
+Epoch 8: 8190 / 10000
+Epoch 9: 8226 / 10000
+Epoch 10: 8248 / 10000
+Epoch 11: 8267 / 10000
+Epoch 12: 8289 / 10000
+Epoch 13: 8299 / 10000
+Epoch 14: 8315 / 10000
+Epoch 15: 8328 / 10000
+Epoch 16: 8341 / 10000
+Epoch 17: 8353 / 10000
+Epoch 18: 8363 / 10000
+Epoch 19: 8376 / 10000
+Epoch 20: 8385 / 10000
+Epoch 21: 8392 / 10000
+Epoch 22: 8397 / 10000
+Epoch 23: 8408 / 10000
+Epoch 24: 8414 / 10000
+Elapsed Time: 2054.520 sec
+
