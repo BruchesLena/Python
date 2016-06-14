@@ -174,3 +174,31 @@ Epoch 23: 8408 / 10000
 Epoch 24: 8414 / 10000
 Elapsed Time: 2054.520 sec
 
+nn = Network([784, 50, 50, 10])
+nn.SGD(training_data, 25, 10, 0.1, test_data)
+Epoch 0: 5877 / 10000
+Epoch 1: 6941 / 10000
+Epoch 2: 7574 / 10000
+Epoch 3: 7792 / 10000
+Epoch 4: 7931 / 10000
+Epoch 5: 8006 / 10000
+Epoch 6: 8066 / 10000
+Epoch 7: 8118 / 10000
+Epoch 8: 8157 / 10000
+Epoch 9: 8190 / 10000
+Epoch 10: 8220 / 10000
+Epoch 11: 8239 / 10000
+Epoch 12: 8259 / 10000
+Epoch 13: 8276 / 10000
+Epoch 14: 8300 / 10000
+Epoch 15: 8317 / 10000
+Epoch 16: 8339 / 10000
+Epoch 17: 8732 / 10000
+Epoch 18: 9089 / 10000
+Epoch 19: 9120 / 10000
+Epoch 20: 9136 / 10000
+Epoch 21: 9160 / 10000
+Epoch 22: 9177 / 10000
+Epoch 23: 9186 / 10000
+Epoch 24: 9197 / 10000
+Elapsed Time: 760.765 sec
