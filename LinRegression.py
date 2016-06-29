@@ -6,6 +6,7 @@ import sklearn.linear_model as lm
 
 x_data = np.loadtxt("D:\Regression\input.txt", delimiter = ' ')
 y_data = np.loadtxt("D:\Regression\output.txt")
+<<<<<<< HEAD
 test_data = np.loadtxt("D:/Regression/test_input.txt", delimiter = ' ')
 #print test_data
 
@@ -19,3 +20,12 @@ for array in test_data:
         #print element
         f.write(str(element) + '\n')
 f.close()
+=======
+
+
+skm = lm.LogisticRegression(solver='lbfgs')
+skm.fit(x_data, y_data)
+prediction = skm.predict([3, 0])
+print "Prediction"
+print prediction
+>>>>>>> branch 'master' of https://github.com/BruchesLena/Python.git
