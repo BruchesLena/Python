@@ -1,22 +1,21 @@
 import numpy as np
-import pandas as pd
-import statsmodels.api as sm
-import patsy as pt
 import sklearn.linear_model as lm
 
-# загружаем файл с данными
-df = np.loadtxt("D:\Machine Learning\SentAnalysis\data_set.txt", delimiter = ' ')
-print df
-# x - таблица с исходными данными факторов (x1, x2, x3)
-x = [[65, 0], [48, 0], [15, 1]]
-# y - таблица с исходными данными зависимой переменной
-y = [0, 0, 1]
+#df = np.loadtxt("D:\Regression\data_set.txt", delimiter = ' ')
+#print df
 
-# создаем пустую модель
-skm = lm.LogisticRegression()
-# запускаем расчет параметров для указанных данных
-skm.fit(x, y)
-# и выведем параметры рассчитанной модели
-prediction = skm.predict([15,1])
-print "Prediction"
-print prediction
+x_data = np.loadtxt("D:\Regression\input.txt", delimiter = ' ')
+y_data = np.loadtxt("D:\Regression\output.txt")
+test_data = np.loadtxt("D:/Regression/test_input.txt", delimiter = ' ')
+#print test_data
+
+skm = lm.LogisticRegression(solver='lbfgs')
+skm.fit(x_data, y_data)
+
+f = open('D:/Regression/our_output.txt', 'w')
+for array in test_data:
+    prediction = skm.predict(array)
+    for element in prediction:
+        #print element
+        f.write(str(element) + '\n')
+f.close()
