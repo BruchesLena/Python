@@ -36,7 +36,7 @@ public class Statistics {
 
 	public static void main(String[] args) throws ParserConfigurationException, UnsupportedEncodingException, FileNotFoundException, SAXException, IOException {
 		// TODO Auto-generated method stub
-			
+			HashMap<Entry, Integer> statistics = getStatistics();
 		}	
 	
 	public static List<Substitution> getSubstitution(String word) {
@@ -276,11 +276,21 @@ public class Statistics {
 		Set<Bigram> keyBigrams = bigrams.keySet();
 		for (Entry entry : entriesInDict) {
 			for (Bigram bigram : keyBigrams) {
-				if (!entry.contextElement.toString().equals(bigram.contextElement.toString()) | !entry.homonym.toString().equals(bigram.homonym.toString())) {
-					continue;
-				}
-				else if (entry.contextElement.toString().equals(bigram.contextElement.toString()) && entry.homonym.toString().equals(bigram.homonym.toString())) {
+//				if (!entry.contextElement.toString().equals(bigram.contextElement.toString()) | !entry.homonym.toString().equals(bigram.homonym.toString())) {
+//					continue;
+//				}
+				ContextElement entryCE = entry.contextElement;
+				ContextElement bigramCE = bigram.contextElement;
+				FullSubstitution entryH = entry.homonym;
+				FullSubstitution bigramH = bigram.homonym;
+				if  (entry.contextElement.equals(bigram.contextElement) && entry.homonym.equals(bigram.homonym)) {
+				//if (entry.contextElement.toString().equals(bigram.contextElement.toString()) && entry.homonym.toString().equals(bigram.homonym.toString())) {
 					entry.probability = (float) ((dictionary.get(entry)*1.0) / (bigrams.get(bigram)*1.0));
+					int getEntry = dictionary.get(entry);
+					int getBigram = bigrams.get(bigram);
+					if (entry.probability > 1) {
+						System.out.println((dictionary.get(entry)*1.0) + "/" + (bigrams.get(bigram)*1.0));
+					}
 				}
 			}
 		}
@@ -313,7 +323,7 @@ public class Statistics {
 		List<Entry> dictionary = new ArrayList<>();	
 		File folder = new File("D:/Ћена/NoAmbig");
 		List<File> folderFiles = getXmlFiles(folder);
-		for (int j = 0; j < 100; j++) { //значени€ дл€ тренировки
+		for (int j = 0; j < 500; j++) { //значени€ дл€ тренировки
 		DocumentBuilderFactory f  = DocumentBuilderFactory.newInstance();
 		f.setValidating(false);
 		DocumentBuilder builder = f.newDocumentBuilder();

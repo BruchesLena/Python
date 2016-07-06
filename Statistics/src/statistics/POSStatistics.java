@@ -45,7 +45,7 @@ public class POSStatistics {
 		List<Entry> dictionary = new ArrayList<>();	
 		File folder = new File("D:/Ћена/NoAmbig");
 		List<File> folderFiles = getXmlFiles(folder);
-		for (int j = 0; j < 2000; j++) { //значени€ дл€ тренировки
+		for (int j = 0; j < 500; j++) { //значени€ дл€ тренировки
 		DocumentBuilderFactory f  = DocumentBuilderFactory.newInstance();
 		f.setValidating(false);
 		DocumentBuilder builder = f.newDocumentBuilder();
@@ -212,13 +212,11 @@ public class POSStatistics {
 			for (Bigram bigram : keyBigrams) {
 				String test = bigram.POSInEngToString();
 				String testEntry = entry.getPartsOfSpeech().toString();
-				if (!entry.contextElement.toString().equals(bigram.contextElement.toString())) {
-					continue;
-				}
-				else if (entry.contextElement.toString().equals(bigram.contextElement.toString()) && (entry.partsOfSpeech.toString().equals(bigram.POSInEngToString()) | (entry.partsOfSpeech.size() == bigram.partsOfSpeech.size()))) {
-					//последнее условие в "или" переделать - элементы идут в разном пор€дке, поэтому не сравниваетс€
+				 if (entry.contextElement.equals(bigram.contextElement) && bigram.partsOfSpeech.equals(entry.getPartsOfSpeech())) {
 					entry.probability = (float) ((dictionary.get(entry)*1.0) / (bigrams.get(bigram)*1.0));
+					if (entry.probability > 1) {
 					System.out.println(dictionary.get(entry) + "/" + bigrams.get(bigram));
+					}
 				}
 			}
 		}

@@ -41,7 +41,7 @@ public class StatForGuessing {
 		Set<FullSubWithPOS> keyFullSubWithPOS = statistics.keySet();
 		File folder = new File("D:/Ћена/NoAmbig");
 		List<File> files = getXmlFiles(folder);
-		for (int j = 0; j < 500; j++) { //значени€ дл€ тренировки
+		for (int j = 0; j < 200; j++) { //значени€ дл€ тренировки
 			DocumentBuilderFactory f  = DocumentBuilderFactory.newInstance();
 			f.setValidating(false);
 			DocumentBuilder builder = f.newDocumentBuilder();
@@ -113,7 +113,9 @@ public class StatForGuessing {
 			for (FullSubstitution fullSub : keyFullSubs) {
 				if (stat.fullSubstitution.toString().equals(fullSub.toString())) {
 					stat.probability = statistics.get(stat)*1.0 / fullSubsNumber.get(fullSub)*1.0;
-						//System.out.println(stat.toString() + " : " + statistics.get(stat) + "/" + fullSubsNumber.get(fullSub));					
+//					if (stat.probability > 1) {
+//						System.out.println(stat.toString() + " : " + statistics.get(stat) + "/" + fullSubsNumber.get(fullSub));	
+//					}
 				}
 			}
 		}

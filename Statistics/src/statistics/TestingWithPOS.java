@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -38,6 +39,7 @@ public class TestingWithPOS {
 		HashMap<Entry, Integer> statistics = ReadingPOSStatistics.readStatistics();
 		Set<Entry> entries = statistics.keySet();
 		List<String> processed = new ArrayList<>();
+		List<String> coefficients = new ArrayList<>();
 		int right = 0;
 		int ambig = 0;
 		int proc = 0;
@@ -47,9 +49,22 @@ public class TestingWithPOS {
 		int Unknown = 0;
 		int noAmbig = 0;
 		
+		double combined = 1;
+		double stat = 1;
+		
 		File folder = new File("D:/Лена/NoAmbig");
 		List<File> folderFiles = getXmlFiles(folder);
-		for (int i = 2500; i < 2550; i++) { //изменить значения i на файлы, на которых проводится тестирование
+		for (int k = 0; k < 5; k++) {
+			combined = combined - 0.05;
+			stat = 1;
+			for (int l = 0; l < 5; l++) {
+				stat = stat - 0.05;
+				right = 0;
+				proc = 0;
+//			}
+//		}
+		
+		for (int i = 2502; i < 2503; i++) { //изменить значения i на файлы, на которых проводится тестирование
 			System.out.println(i);
 			DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 			f.setValidating(false);
@@ -158,10 +173,10 @@ public class TestingWithPOS {
 						POSChoice rightpart = chooseLemma(parts);
 						HashSet<PartOfSpeech> result = new HashSet<>();
 						if (rightpart == null) {
-							result = getResultPOS(posWithCombApproach, null);
+							result = getResultPOSWithCoef(posWithCombApproach, null, combined, stat);
 						}
 						else {
-							result = getResultPOS(posWithCombApproach, toPartOfSpeech(rightpart.partOfSpeech));
+							result = getResultPOSWithCoef(posWithCombApproach, toPartOfSpeech(rightpart.partOfSpeech), combined, stat);
 						}
 						if (result.contains(toPartOfSpeech(rightPOS))) {
 							if (result.size() == 1) {
@@ -214,16 +229,19 @@ public class TestingWithPOS {
 					//}
 				}
 			}
-		}		
-		System.out.println("processed: " + proc);
-		System.out.println("right: " + right);
-		System.out.println("wrong: " + ambig);
-		System.out.println("noAmbig: " + noAmbig);
-		System.out.println("unknown: " + Unknown);
-		System.out.println("rightUnknown: " + rightUnknown);
-		System.out.println("ambigUnknown: " + ambigUnknown);
-		System.out.println("noStat: " + noStat);
-		Analysis.writeInFile(processed, "D:/Лена/Statistics/Results.txt", false);
+			coefficients.add(addResults(combined, stat, right));
+		}	
+	}
+}
+//		System.out.println("processed: " + proc);
+//		System.out.println("right: " + right);
+//		System.out.println("wrong: " + ambig);
+//		System.out.println("noAmbig: " + noAmbig);
+//		System.out.println("unknown: " + Unknown);
+//		System.out.println("rightUnknown: " + rightUnknown);
+//		System.out.println("ambigUnknown: " + ambigUnknown);
+//		System.out.println("noStat: " + noStat);
+		Analysis.writeInFile(coefficients, "D:/Лена/Statistics/Coef.txt", false);
 	}
 
 	public static void getContextsForWordsInDict(NodeList nodeList, int j,
@@ -323,16 +341,6 @@ public class TestingWithPOS {
 				}
 			}
 			}
-//			else if (!processed.contains(part)) {
-//				processed.add(part);
-//			}
-//			else {
-//				for (POSChoice lpro : processed) {
-//					if (lpro.partOfSpeech.equals(part.partOfSpeech)) {
-//						lpro.coefficient = lpro.coefficient + part.coefficient;						
-//					}
-//				}
-//			}
 		}
 		return processed;
 	}
@@ -447,30 +455,45 @@ public class TestingWithPOS {
 	}
 	
 	public static HashSet<PartOfSpeech> chooseWithCombinedApproach(NodeList nodeList, int j) {
-		HashSet<PartOfSpeech> partsOfSpeech = new HashSet<>();
 		if (j > 0 && j < nodeList.getLength()-1) {
-			String str = Statistics.getTextFromToken(nodeList.item(j-1)) + " " + Statistics.getTextFromToken(nodeList.item(j)) + " " + Statistics.getTextFromToken(nodeList.item(j+1));
-			List<IToken> wordFormTokens = TestingUtil.getWordFormTokens(str);
-			AdditionalMetadataHandler.setStoreMetadata(true);
-			CombinedMorphologicParser cmp = new CombinedMorphologicParser();
-			List<IToken> processed = cmp.process(wordFormTokens);
-			for (IToken proc : processed) {
-				if (!proc.hasCorrelation() || proc.getCorrelation() > 0.05) {
-					String shortStringValue = proc.getShortStringValue().trim();
-					String textFromToken = Statistics.getTextFromToken(nodeList.item(j));
-					if (proc.getShortStringValue().trim().equals(Statistics.getTextFromToken(nodeList.item(j)))) {
-						if (proc instanceof SyntaxToken) {
-							SyntaxToken ch = (SyntaxToken) proc;
-							partsOfSpeech.add(ch.getPartOfSpeech());
-						}
-					
-				}
-				}
+			String textFromToken = Statistics.getTextFromToken(nodeList.item(j));
+			String str = Statistics.getTextFromToken(nodeList.item(j-1)) + " " + textFromToken + " " + Statistics.getTextFromToken(nodeList.item(j+1));
+			return chooseWithCombinedApproach(
+					str, textFromToken);
+		}
+		return new HashSet<PartOfSpeech>();
+	}
+
+	public static HashSet<PartOfSpeech> chooseWithCombinedApproach(
+			String str, String textFromToken) {
+		HashSet<PartOfSpeech> partsOfSpeech = new HashSet<>();
+		List<IToken> wordFormTokens = TestingUtil.getWordFormTokens(str);
+		AdditionalMetadataHandler.setStoreMetadata(true);
+		CombinedMorphologicParser cmp = new CombinedMorphologicParser();
+		List<IToken> processed = cmp.process(wordFormTokens);
+		for (IToken proc : processed) {
+			if (!proc.hasCorrelation() || proc.getCorrelation() > 0.05) {
+				String shortStringValue = proc.getShortStringValue().trim();
+				if (proc.getShortStringValue().trim().equals(textFromToken)) {
+					if (proc instanceof SyntaxToken) {
+						SyntaxToken ch = (SyntaxToken) proc;
+						partsOfSpeech.add(ch.getPartOfSpeech());
+					}
+				
+			}
 			}
 		}
 		return partsOfSpeech;
 	}
 	
+//	public static HashMap<PartOfSpeech, Double> normalizeCoefficients(List<IToken> processed) {
+//		HashMap<PartOfSpeech, Double> probabilities = new HashMap<>();
+//		double general = 0;
+//		for (IToken token : processed) {
+//			general += token.getCorrelation();
+//		}
+//	}
+//	
 	public static HashSet<PartOfSpeech> getResultPOS(HashSet<PartOfSpeech> posWithCombined, PartOfSpeech posWithStat) {
 		HashSet<PartOfSpeech> result = new HashSet<>();
 		if (posWithStat == null) {
@@ -485,6 +508,37 @@ public class TestingWithPOS {
 			result.add(posWithStat);
 		}
 		return result;
+	}
+	
+	public static HashSet<PartOfSpeech> getResultPOSWithCoef(HashSet<PartOfSpeech> posWithCombined, PartOfSpeech posWithStat, double combined, double stat) {
+		HashSet<PartOfSpeech> result = new HashSet<>();
+		HashMap<PartOfSpeech, Double> counting = new HashMap<>();
+		counting.put(posWithStat, stat);
+		for (PartOfSpeech pos : posWithCombined) {
+			if (counting.containsKey(pos)) {
+				double value = counting.get(pos) + combined;
+				counting.put(pos, value);
+			}
+			else {
+				counting.put(pos, combined);
+			}
+		}
+		double current = 0;
+		for (PartOfSpeech pos : counting.keySet()) {
+			if (counting.get(pos) > current) {
+				current = counting.get(pos);
+			}
+		}
+		for (PartOfSpeech pos : counting.keySet()) {
+			if (counting.get(pos) == current) {
+				result.add(pos);
+			}
+		}
+		return result;
+	}
+	
+	public static String addResults(double combined, double stat, int right) {
+		return combined + " " + stat + " " + right;
 	}
 	
 	public static String visualizeChoice(HashSet<PartOfSpeech> posWithCombined, PartOfSpeech posWithStat) {
