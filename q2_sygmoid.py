@@ -6,14 +6,10 @@ def sigmoid(x):
     """
     
     ### YOUR CODE HERE
-    #raise NotImplementedError
-    output = []
-    for array in x:
-        array = 1 / (1 + np.exp(-array))
-        output.append(array)
+    x = 1 / (1 + np.exp(-x))
     ### END YOUR CODE
     
-    return np.array(output)
+    return x
 
 def sigmoid_grad(f):
     """
@@ -23,14 +19,12 @@ def sigmoid_grad(f):
     """
     
     ### YOUR CODE HERE
-    #raise NotImplementedError
-    output = []
-    for array in f:
-        array = array*(1-array)
-        output.append(array)
+
+    f = f * (1 - f)
+
     ### END YOUR CODE
-    
-    return np.array(output)
+
+    return f
 
 def test_sigmoid_basic():
     """
