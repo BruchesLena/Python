@@ -23,19 +23,22 @@ def softmax(x):
     ### YOUR CODE HERE
     #raise NotImplementedError
     output = []
-    if x.shape.__len__() == 1:
+    if x.ndim == 1:
         maxElement = np.max(x)
         x -= maxElement
         arraySum = np.sum(np.exp(x))
         x = np.exp(x) / arraySum
         output.append(x)
     else:
-        for row in x:
-            maxElement = np.max(row)
-            row -= maxElement
-            arraySum = np.sum(np.exp(row))
-            row = np.exp(row) / arraySum
-            output.append(row)
+        maxElement = np.max(x, axis=1)
+        if maxElement.size > 1:
+            x -= maxElement.reshape(x.ndim, 1)
+            arraySum = np.sum(np.exp(x), axis=1)
+            output = np.exp(x) / arraySum
+        else:
+            x -= maxElement
+            arraySum = np.sum(np.exp(x), axis=1)
+            output = np.exp(x) / arraySum
     return np.array(output)
         
     ### END YOUR CODE
