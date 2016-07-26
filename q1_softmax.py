@@ -22,24 +22,17 @@ def softmax(x):
 
     ### YOUR CODE HERE
     #raise NotImplementedError
-    output = []
     if x.ndim == 1:
         maxElement = np.max(x)
         x -= maxElement
         arraySum = np.sum(np.exp(x))
         x = np.exp(x) / arraySum
-        output.append(x)
     else:
         maxElement = np.max(x, axis=1)
-        if maxElement.size > 1:
-            x -= maxElement.reshape(x.ndim, 1)
-            arraySum = np.sum(np.exp(x), axis=1)
-            output = np.exp(x) / arraySum
-        else:
-            x -= maxElement
-            arraySum = np.sum(np.exp(x), axis=1)
-            output = np.exp(x) / arraySum
-    return np.array(output)
+        x -= maxElement.reshape(x.shape[0], 1)
+        arraySum = np.sum(np.exp(x), axis=1)
+        x = np.exp(x) / arraySum
+    return x
         
     ### END YOUR CODE
 
