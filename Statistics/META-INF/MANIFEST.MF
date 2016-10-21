@@ -6,11 +6,12 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: statistics.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- com.onpositive.text.analisys
+ com.onpositive.text.analisys,
+ org.junit;bundle-version="4.12.0",
+ com.onpositive.wikipedia.workbench
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: com.onpositive.semantic.wordnet,
  com.onpositive.text.analysis,
  com.onpositive.text.analysis.lexic,
- com.onpositive.text.analysis.syntax,
- com.onpositive.wikipedia.dumps.builder
+ com.onpositive.text.analysis.syntax
